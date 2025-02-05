@@ -1,0 +1,94 @@
+<!-- File: static/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Device Monitoring Dashboard</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Third-party libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1>IoT Device Monitoring</h1>
+                <span id="connection-status" class="connection-status">Connecting...</span>
+            </div>
+            <div class="header-right">
+                <label class="toggle">
+                    <input type="checkbox" id="view-toggle" checked>
+                    <span class="toggle-label">Real-time</span>
+                </label>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="card device-list">
+                    <div class="card-header">
+                        <h2>Devices</h2>
+                        <span class="device-count">0 devices</span>
+                    </div>
+                    <div id="devices-container" class="card-content">
+                        <!-- Devices will be added here -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Dashboard -->
+            <main class="content">
+                <!-- Charts Section -->
+                <section class="row">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <h2>Real-time Metrics</h2>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="realTimeChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats & Events Section -->
+                <section class="row">
+                    <!-- Device Statistics -->
+                    <div class="card stats-card">
+                        <div class="card-header">
+                            <h2>Device Statistics</h2>
+                        </div>
+                        <div class="card-content">
+                            <div id="deviceStats" class="stats-grid">
+                                <!-- Stats will be added here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Log -->
+                    <div class="card events-card">
+                        <div class="card-header">
+                            <h2>Event Log</h2>
+                        </div>
+                        <div class="card-content">
+                            <div id="eventsList" class="events-list">
+                                <!-- Events will be added here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Application Scripts -->
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  signing_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.signing_service
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=signing_service/app.py
+      - FLASK_ENV=development
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  device_management_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.device_management_service
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_APP=device_management/app.py
+      - FLASK_ENV=development
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  monitoring_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.monitoring_service
+    ports:
+      - "5002:5002"
+    environment:
+      - FLASK_APP=monitoring_service/app.py
+      - FLASK_ENV=development
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - rabbitmq
+
+  virtual_devices:
+    build:
+      context: .
+      dockerfile: Dockerfile.virtual_devices
+    environment:
+      - FLASK_ENV=development
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - rabbitmq
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Aftab1999@
+      POSTGRES_DB: iot_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+volumes:
+  postgres_data:
